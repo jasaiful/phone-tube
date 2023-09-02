@@ -8,7 +8,7 @@ const handleCategory = async () => {
     data.data.forEach((category) => {
         const div = document.createElement('div')
         div.innerHTML = `
-        <a onclick="handleLoadCard('${category.category_id}')" class="tab">${category.category}</a>
+        <a onclick="handleLoadCard('${category.category_id}')" class="tab rounded bg-slate-300">${category.category}</a>
         `;
         tabContainer.appendChild(div);
 
@@ -19,10 +19,13 @@ const handleCategory = async () => {
 };
 
 const handleLoadCard = async (categoryId) => {
+    console.log(categoryId);
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${categoryId}`);
     const data = await res.json();
 
     const cardContainer = document.getElementById('card-container');
+
+    cardContainer.innerHTML = '';
 
     data.data?.forEach((news) => {
         console.log(news.authors[0].verified);
@@ -40,9 +43,13 @@ const handleLoadCard = async (categoryId) => {
                         <h2 class="card-title">
                         ${news?.title}
                         </h2>
-                        <h4 class="">
+                        <h4 class="flex gap-2">
                         ${news?.authors[0]?.profile_name}
-                            <div class="badge badge-secondary">NEW</div>
+                        ${news?.authors[0]?.verified ?
+                          `  <img src="./Resources/1.png"/ class="object-cover px-1 mr-1">`
+                            : 
+                            `<span></span>`
+                        } 
                         </h4>
                         <p>${news?.others?.views} views</p>
                     </div>
@@ -68,3 +75,4 @@ const handleLoadCard = async (categoryId) => {
 
 
 handleCategory();
+handleLoadCard(1000)
