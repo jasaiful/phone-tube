@@ -93,7 +93,5 @@ const handleLoadCard = async (categoryId) => {
 
 };
 
-
-
 handleCategory();
 handleLoadCard(1000)
